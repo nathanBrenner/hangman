@@ -1,0 +1,29 @@
+.letter-button {
+  height: 100px;
+  width: 100px;
+  background-color: green;
+  margin: 10px;
+  border-radius: 50px;
+  color: #fff;
+}
+
+.letter-button.selected {
+  background-color: red;
+}
+
+.hiding-letter {
+  border-bottom: 1px solid black;
+  /* height: 100px; */
+  width: 100px;
+  display: inline-block;
+  margin: 10px;
+  height: 19px;
+}
+
+.show-letter {
+  border-bottom: 1px solid black;
+  width: 100px;
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
