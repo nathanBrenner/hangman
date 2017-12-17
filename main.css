@@ -27,3 +27,7 @@
   margin: 10px;
   text-align: center;
 }
+
+.hideButton {
+  display: none;
+}

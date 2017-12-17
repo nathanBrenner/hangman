@@ -52,9 +52,24 @@ var WordList = (function() {
   return WordList;
 }());
 
+var Guesses = (function() {
+  var guesses = 8;
+
+  function Guesses() {
+    createGuesses();
+  }
+
+  function createGuesses() {
+    var guessesDiv = document.getElementById('guesses');
+    guessesDiv.innerHTML = guesses;
+  }
+
+  return Guesses;
+}());
+
 var Letters = (function() {
   var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
+  var lettersAttempted = [];
   function Letters(word) {
     this.createLetterButtons(word);
   };
@@ -70,6 +85,17 @@ var Letters = (function() {
     letter.addEventListener('click', function() {
       var isLettersInWord = selectLetter(letter, word);
       checkWord(isLettersInWord, word);
+      if (isLettersInWord.lettersInWord.length === 0) {
+        removeGuess();
+      }
+
+      var button = document.getElementsByClassName('hideButton');
+      if (button.length === 1) {
+        button[0].innerHTML = 'undo';
+        button[0].classList.remove('hideButton');
+        var controlBtn = document.getElementById('control')
+        controlBtn.addEventListener('click', undo, false);
+      }
     }, false);
     div.appendChild(letter);
   }
@@ -78,25 +104,45 @@ var Letters = (function() {
     console.log('checkWord', isLettersInWord, word);
     var selectedWordDiv = document.getElementById('selectedWord');
     var child_nodes = selectedWordDiv.childNodes;
-    console.log(child_nodes);
     for (let i = 0; i < child_nodes.length; i++) {
       const element = child_nodes[i];
       if(isLettersInWord.lettersInWord.indexOf(i) > -1) {
-        child_nodes[i].setAttribute('class', 'show-letter');
-        // var itemContent = child_nodes[i].innerHTML;
-        // child_nodes[i].innerHTML = word[i];
-        child_nodes[i].childNodes[0].innerHTML = word[i];
-        // var span = document.createElement('span');;
-        // var spanText = document.createTextNode(word[i]);
-        // span.appendChild(spanText);
-        // child_nodes[i].appendChild(span);
+        element.setAttribute('class', 'show-letter');
+        element.childNodes[0].innerHTML = word[i];
       }
     }
+  }
+
+  function undo() {
+    var button = document.getElementById('control');
+    var guesses = document.getElementById('guesses');
+    var count = +guesses.innerHTML;
+    if (count < 8) {
+      guesses.innerHTML++;
+      var letter = lettersAttempted[lettersAttempted.length -1].toLowerCase();
+      var id = 'letter-'+letter;
+      var selected = document.getElementById(id);
+      selected.classList.remove('selected');
+      lettersAttempted.pop();
+
+    }
+
+  }
+
+  function removeGuess() {
+    var guesses = document.getElementById('guesses');
+    var content = guesses.innerHTML;
+    var contentNumber = +content;
+    var less = contentNumber - 1;
+
+    guesses.innerHTML = less > 0 ? less : 'Game Over';
   }
 
   function selectLetter(letter, word) {
     letter.classList.add('selected');
     var id = getId(letter);
+    lettersAttempted.push(id);
+    console.log(lettersAttempted);
     var inWord = word.indexOf(id);
 
     var lettersInWord = isLetterInWord(id, word);
@@ -130,12 +176,42 @@ var Letters = (function() {
   return Letters;
 })();
 
+var Controls = (function() {
+  function Controls() {
+    startGame();
+  }
+
+  function startGame() {
+    var button = document.getElementById('control');
+    button.innerHTML = 'Start new game';
+    button.addEventListener('click', setButtonText, false);
+  }
+
+  function setButtonText() {
+    if (this.innerHTML = 'Start new game') {
+      startNewGame(this);
+    }
+  }
+
+  function startNewGame(button) {
+    var wordList = new WordList();
+    var guesses = new Guesses();
+    var letters = new Letters(wordList.startGame());
+    var controls = new Controls();
+    button.setAttribute('class', 'hideButton');
+    button.removeEventListener('click', setButtonText);
+  }
+
+  return Controls;
+
+}());
+
 
 window.onload = (function() {
-  var wordList = new WordList();
-
-  var letters = new Letters(wordList.startGame());
-
+  // var wordList = new WordList();
+  // var guesses = new Guesses();
+  // var letters = new Letters(wordList.startGame());
+  var controls = new Controls();
 }());
 
 
