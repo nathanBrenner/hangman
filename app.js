@@ -111,6 +111,13 @@ var Letters = (function() {
         element.childNodes[0].innerHTML = word[i];
       }
     }
+
+    var hiding = document.getElementsByClassName('hiding-letter');
+    var hidingCount = hiding.length;
+    if (hidingCount === 0) {
+      var guesses = document.getElementById('guesses');
+      guesses.innerHTML = 'You Win';
+    }
   }
 
   function undo() {
@@ -124,7 +131,6 @@ var Letters = (function() {
       var selected = document.getElementById(id);
       selected.classList.remove('selected');
       lettersAttempted.pop();
-
     }
 
   }
@@ -208,9 +214,6 @@ var Controls = (function() {
 
 
 window.onload = (function() {
-  // var wordList = new WordList();
-  // var guesses = new Guesses();
-  // var letters = new Letters(wordList.startGame());
   var controls = new Controls();
 }());
 
