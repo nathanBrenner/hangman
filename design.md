@@ -1,8 +1,7 @@
 Design
-  vanilla js: shows that I’m not dependent on a framework, frame words can be effective on large scale apps, but not for a small client side app like this
+  vanilla js: shows that I’m not dependent on a framework, frameworks can be effective for scaling an app, and can be overkill for a small scoped project like this
 		- javascript 5: shows that I understand syntax and I’m not reliant on the sugar from es6
-	list of words: RABBIT, BUNNY, CARROT, LETTUCE, BURROW,
-FLUFFY, FLOPPY, LITTER, PELLETS.
+	list of words: RABBIT, BUNNY, CARROT, LETTUCE, BURROW, FLUFFY, FLOPPY, LITTER, PELLETS.
 	New game: e: start game => 
 		1. select a word at random, 
 			- remove that word from the words array, 
@@ -18,7 +17,7 @@ FLUFFY, FLOPPY, LITTER, PELLETS.
 		3. If guess === 0, show game over
 		4. if letters on word are all shown, show win message
 		5. when game is over, show button to start new game
-bookmark turns: collect state:
+  bookmark turns: collect state:
 		- create an empty array at the beginning of each turn, and push the letters that have been selected
 		- create a list of objects that show a state of a game with the array of  letters selected, and the guesses remaining
 	sharing:
@@ -27,10 +26,10 @@ bookmark turns: collect state:
 	undo: button on click removes last letter selected
 		- if letter was not in selected word, add guess (no more than 8)
 		- if letter was in selected word, remove letter from being displayed
-standards-complaint web browser
+  standards-complaint web browser
 		- use css files, not html attributes
-security: client side tampering: 
+  security: client side tampering: 
 		- don’t show the list of available words
 		- url must have some sort of hash that hides the state of the game
 		https://blog.jscrambler.com/the-most-effective-way-to-protect-client-side-javascript-applications/
-proxer-friendly? 
+  proxer-friendly? 
